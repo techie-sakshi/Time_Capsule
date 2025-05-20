@@ -1,42 +1,276 @@
+/* globals.css */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --primary-color: #0bea95;
+  --secondary-color: #ff00c8;
+  --background-color: #0a0a23;
+  --text-color: #ffffff;
+  --border-radius: 8px;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
-
-html,
-body {
-  max-width: 100vw;
-  overflow-x: hidden;
-}
-
-body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-* {
-  box-sizing: border-box;
-  padding: 0;
+body, html {
   margin: 0;
+  padding: 0;
+  font-family: 'Courier New', monospace;
+  background-color: var(--background-color);
+  color: var(--text-color);
+  line-height: 1.6;
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-a {
-  color: inherit;
-  text-decoration: none;
+.container {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  flex-direction: column;
 }
 
-@media (prefers-color-scheme: dark) {
-  html {
-    color-scheme: dark;
+.time-machine {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: var(--border-radius);
+  padding: 2rem;
+  width: 100%;
+  max-width: 1200px;
+  box-shadow: 0 0 20px rgba(0, 255, 157, 0.2);
+  animation: glow 4s infinite;
+  margin-bottom: 3rem;
+}
+
+/* New Navbar styles */
+.navbar {
+  width: 100%;
+  max-width: 1200px;
+  background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+  border-radius: var(--border-radius);
+  padding: 0.5rem 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 0 15px rgba(0, 255, 157, 0.7);
+  margin-bottom: 2rem;
+}
+
+.navbar-left,
+.navbar-right {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.nav-link {
+  color: var(--background-color);
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.4rem 0.8rem;
+  border-radius: var(--border-radius);
+  transition: background-color 0.3s ease;
+  font-size: 1rem;
+  user-select: none;
+}
+
+.nav-link:hover,
+.nav-link.active {
+  background-color: var(--background-color);
+  color: var(--primary-color);
+  font-weight: 700;
+}
+
+
+/* Dark mode overrides */
+body.dark {
+  --primary-color: #00ff9d;
+  --secondary-color: #ff00c8;
+  --background-color: #f0f0f0;
+  --text-color: #121212;
+}
+
+body.dark .time-machine {
+  background: rgba(0, 0, 0, 0.05);
+  box-shadow: 0 0 20px rgba(0, 255, 157, 0.4);
+  color: var(--text-color);
+}
+
+/* Rest of your styles */
+
+.capsule-header {
+  text-align: center;
+  margin-bottom: 2rem;
+ font-family: 'Papyrus', cursive, sans-serif;
+}
+
+.year-display {
+  font-size: 2.5rem;
+  color: var(--primary-color);
+  text-shadow: 0 0 10px var(--primary-color);
+  margin-top: -1rem;
+}
+
+.capsule-form {
+  display: grid;
+  gap: 1.5rem;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+textarea, input, select {
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid var(--primary-color);
+  border-radius: var(--border-radius);
+  padding: 0.8rem;
+  color: var(--text-color);
+  font-family: inherit;
+}
+
+textarea {
+  min-height: 100px;
+  resize: vertical;
+}
+
+.submit-btn {
+  background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+  color: var(--background-color);
+  border: none;
+  padding: 1rem;
+  border-radius: var(--border-radius);
+  cursor: pointer;
+  font-weight: bold;
+  transition: transform 0.3s;
+}
+
+.submit-btn:hover {
+  transform: scale(1.02);
+}
+
+.message-list {
+  margin-top: 2rem;
+
+}
+
+.message-card {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: var(--border-radius);
+  padding: 1rem;
+  margin-bottom: 1rem;
+  border-left: 4px solid var(--primary-color);
+  animation: fadeIn 0.5s ease-out;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  color: var(--text-color);
+}
+
+.status-display {
+  margin-top: 2rem;
+  text-align: center;
+}
+
+.countdown-timer {
+  font-size: 1.5rem;
+  color: var(--primary-color);
+  margin-bottom: 1rem;
+}
+
+.capsule-stats {
+  font-size: 0.9rem;
+  opacity: 0.8;
+}
+
+.calendar-container {
+  margin-top: 2rem;
+  align-self: flex-start;
+  padding-left: 1rem;
+}
+
+.react-calendar {
+  border-radius: var(--border-radius);
+  border: none;
+  background: rgba(255, 255, 255, 0.1);
+  box-shadow: 0 0 10px var(--primary-color);
+  padding: 1rem;
+  color: var(--text-color);
+  font-family: inherit;
+  max-width: 100%;
+  width: 100%;
+}
+
+.react-calendar__tile--now {
+  background: #3b82f6 !important;
+  color: white !important;
+  border-radius: 0.5rem;
+}
+
+@media (max-width: 1024px) {
+  .calendar-container {
+    align-self: center;
+    padding-left: 0;
+    padding-top: 2rem;
   }
+}
+
+@keyframes glow {
+  0% { box-shadow: 0 0 5px var(--primary-color); }
+  50% { box-shadow: 0 0 20px var(--primary-color); }
+  100% { box-shadow: 0 0 5px var(--primary-color); }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.welcome-message {
+  font-family: 'Papyrus', cursive, sans-serif; /* example of a cool handwriting font */
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: white;
+  text-align: center;
+  margin-bottom: 2rem;
+  text-shadow: 0 0 8px var(--primary-color);
+}
+.date-time {
+  color: var(--background-color); /* or your navbar text color */
+  font-family: 'Courier New', monospace;
+  font-size: 0.9rem;
+  user-select: none;
+  min-width: 140px;
+  line-height: 1.2;
+}
+
+.time-machine select option {
+  background-color: var(--background-color);
+  color: var(--text-color);
+}
+/* in globals.css, at the bottom */
+.time-machine .flex > * + * {
+  margin-left: 1rem; /* same as tailwind’s space-x-4 */
+}
+.analytics-cards {
+  display: flex; flex-wrap: wrap; gap: 1rem; margin-top: 1rem;
+  
+}
+.analytics-card {
+  background: var(--card-bg);
+  border-radius: var(--border-radius);
+  padding: 1.5rem;
+  flex: 1 1 200px;
+  text-align: center;
+  border: 2px solid var(--primary-color); /* Add this for border */
+  /* box-shadow: 0 0 10px var(--primary-color); Optional: glow effect */
+}
+.analytics-card h2 {
+  margin-bottom: 0.5rem; font-size: 1.2rem;
+}
+.analytics-card p {
+  font-size: 2rem; color: var(--primary-color);
+  
 }
