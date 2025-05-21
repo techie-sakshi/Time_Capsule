@@ -210,7 +210,7 @@ textarea {
   border-radius: 0.5rem;
 }
 
-@media (max-width: 1024px) {
+@media (max-width: 768px) {
   .calendar-container {
     align-self: center;
     padding-left: 0;

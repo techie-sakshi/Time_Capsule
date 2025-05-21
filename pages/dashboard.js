@@ -120,8 +120,8 @@ export default function Dashboard() {
     }
     const tagsArray = tagsInput
       .split(",")
-      .map(t => t.trim())
-      .filter(t => t.length);
+      .map((t) => t.trim())
+      .filter((t) => t.length);
     try {
       await addDoc(collection(db, "capsules"), {
         userId: user.uid,
@@ -133,7 +133,10 @@ export default function Dashboard() {
         createdAt: serverTimestamp(),
         reminderSent: false,
       });
-      setMessage(""); setUnlockDate(""); setFile(null); setTagsInput("");
+      setMessage("");
+      setUnlockDate("");
+      setFile(null);
+      setTagsInput("");
       if (fileInputRef.current) fileInputRef.current.value = "";
       setStatus("✅ Capsule created!");
     } catch {
@@ -144,11 +147,11 @@ export default function Dashboard() {
   const isUnlocked = (capsule) => capsule.unlockDate.getTime() <= Date.now();
 
   const filtered = capsules
-    .filter(c => c.message.toLowerCase().includes(searchTerm.toLowerCase()))
-    .filter(c => {
+    .filter((c) => c.message.toLowerCase().includes(searchTerm.toLowerCase()))
+    .filter((c) => {
       const unlocked = isUnlocked(c);
-      if (filterStatus === 'locked') return !unlocked;
-      if (filterStatus === 'unlocked') return unlocked;
+      if (filterStatus === "locked") return !unlocked;
+      if (filterStatus === "unlocked") return unlocked;
       return true;
     });
 
@@ -158,44 +161,73 @@ export default function Dashboard() {
     const ca = a.createdAt.getTime();
     const cb = b.createdAt.getTime();
     switch (sortOption) {
-      case 'unlockAsc': return ua - ub;
-      case 'unlockDesc': return ub - ua;
-      case 'createdAsc': return ca - cb;
-      case 'createdDesc': return cb - ca;
-      default: return 0;
+      case "unlockAsc":
+        return ua - ub;
+      case "unlockDesc":
+        return ub - ua;
+      case "createdAsc":
+        return ca - cb;
+      case "createdDesc":
+        return cb - ca;
+      default:
+        return 0;
     }
   });
+
   const total = capsules.length;
   const unlocked = capsules.filter(isUnlocked).length;
   const locked = total - unlocked;
-  const nextDate = capsules
-    .filter(c => !isUnlocked(c))
-    .sort((a, b) => a.unlockDate - b.unlockDate)[0]?.unlockDate
-    .toLocaleString() || "None";
+  const nextDate =
+    capsules
+      .filter((c) => !isUnlocked(c))
+      .sort((a, b) => a.unlockDate - b.unlockDate)[0]
+      ?.unlockDate.toLocaleString() || "None";
 
   return (
     <div className="container">
       <div className="navbar">
         <div className="navbar-left">
-          <div className={`nav-link ${activeTab === 'dashboard' ? 'active' : ''}`} onClick={() => setActiveTab('dashboard')}><FaHome /> Dashboard</div>
-          <div className={`nav-link ${activeTab === 'create' ? 'active' : ''}`} onClick={() => setActiveTab('create')}><FaPlusCircle /> Create</div>
           <div
-          className={`nav-link ${activeTab === 'analytics' ? 'active' : ''}`}
-          onClick={() => setActiveTab('analytics')}
-        ><FaChartBar /> Analytics</div>
+            className={`nav-link ${activeTab === "dashboard" ? "active" : ""}`}
+            onClick={() => setActiveTab("dashboard")}
+          >
+            <FaHome /> Dashboard
+          </div>
+          <div
+            className={`nav-link ${activeTab === "create" ? "active" : ""}`}
+            onClick={() => setActiveTab("create")}
+          >
+            <FaPlusCircle /> Create
+          </div>
+          <div
+            className={`nav-link ${activeTab === "analytics" ? "active" : ""}`}
+            onClick={() => setActiveTab("analytics")}
+          >
+            <FaChartBar /> Analytics
+          </div>
         </div>
-        
 
         <div className="navbar-right">
-          <div className="date-time">{currentDay}, {currentDate}<br />{currentTime}</div>
-          <div className="nav-link" onClick={handleLogout}><FaSignOutAlt /> Logout</div>
+          <div className="date-time">
+            {currentDay}, {currentDate}
+            <br />
+            {currentTime}
+          </div>
+          <div className="nav-link" onClick={handleLogout}>
+            <FaSignOutAlt /> Logout
+          </div>
         </div>
       </div>
 
-      {
-        activeTab === 'dashboard' && (
+      <>
+        {activeTab === "dashboard" && (
           <div className="time-machine">
-            <h1 className="welcome-message">{user ? `Hello, ${user.displayName || user.email} Welcome to TimeCapsule - where your memories wait patiently for the perfect moment.` : 'Loading...'}</h1>
+            <h1 className="welcome-message">
+              {user
+                ? `Hello, ${user.displayName || user.email} Welcome to TimeCapsule - where your memories wait patiently for the perfect moment.`
+                : "Loading..."}
+            </h1>
+
             <div className="flex flex-wrap gap-4 mb-6 items-center">
               <input
                 type="text"
@@ -211,7 +243,10 @@ export default function Dashboard() {
                   value={filterStatus}
                   onChange={(e) => setFilterStatus(e.target.value)}
                   className="border p-2 rounded"
-                  style={{ backgroundColor: 'var(--card-bg)', color: 'var(--text-color)' }}
+                  style={{
+                    backgroundColor: "var(--card-bg)",
+                    color: "var(--text-color)",
+                  }}
                 >
                   <option value="all">All</option>
                   <option value="locked">Locked</option>
@@ -225,7 +260,10 @@ export default function Dashboard() {
                   value={sortOption}
                   onChange={(e) => setSortOption(e.target.value)}
                   className="border p-2 rounded"
-                  style={{ backgroundColor: 'var(--card-bg)', color: 'var(--text-color)' }}
+                  style={{
+                    backgroundColor: "var(--card-bg)",
+                    color: "var(--text-color)",
+                  }}
                 >
                   <option value="unlockDesc">Unlock Date ↓</option>
                   <option value="unlockAsc">Unlock Date ↑</option>
@@ -237,31 +275,50 @@ export default function Dashboard() {
 
             <div className="message-list mt-4">
               {filtered.length === 0 && <p>No capsules found.</p>}
-              {filtered.map(cap => (
+              {filtered.map((cap) => (
                 <div key={cap.id} className="message-card mb-4">
-                  <div><strong>Unlocks on:</strong> {cap.unlockDate.toLocaleString()}</div>
-                  <div className="capsule-meta"><small>Created on: {cap.createdAt.toLocaleString()}</small></div>
+                  <div>
+                    <strong>Unlocks on:</strong> {cap.unlockDate.toLocaleString()}
+                  </div>
+                  <div className="capsule-meta">
+                    <small>Created on: {cap.createdAt.toLocaleString()}</small>
+                  </div>
                   <div className="countdown-timer">
-                    {isUnlocked(cap) ? 'Unlocked!' : <Countdown date={cap.unlockDate} />}
+                    {isUnlocked(cap) ? "Unlocked!" : <Countdown date={cap.unlockDate} />}
                   </div>
                   {isUnlocked(cap) ? (
                     <>
                       <p>{cap.message}</p>
                       {cap.tags?.length > 0 && (
                         <div className="flex gap-2 flex-wrap mt-2">
-                          {cap.tags.map(tag => (
-                            <span key={tag} onClick={() => setSearchTerm(tag)} className="px-2 py-1 bg-gray-200 rounded cursor-pointer text-sm">
-                              {tag}
+                          {cap.tags.map((tag) => (
+                            <span
+                              key={tag}
+                              onClick={() => setSearchTerm(tag)}
+                              className="px-2 py-1 rounded cursor-pointer"
+                              style={{ backgroundColor: "#333", color: "white" }}
+                            >
+                              #{tag}
                             </span>
                           ))}
                         </div>
                       )}
                       {cap.fileURL && (
-                        cap.fileType === 'image' ? (
-                          <img src={cap.fileURL} alt="Attached" className="w-full mt-2 rounded" />
-                        ) : (
-                          <a href={cap.fileURL} target="_blank" rel="noopener noreferrer" className="underline">View File</a>
-                        )
+                        <>
+                          {cap.fileType.startsWith("image") ? (
+                            <img
+                              src={cap.fileURL}
+                              alt="Attachment"
+                              className="mt-2 max-w-full rounded"
+                            />
+                          ) : (
+                            <video
+                              controls
+                              src={cap.fileURL}
+                              className="mt-2 max-w-full rounded"
+                            />
+                          )}
+                        </>
                       )}
                     </>
                   ) : (
@@ -269,16 +326,13 @@ export default function Dashboard() {
                       🔒 This capsule is locked. Message and media will be available after unlock time.
                     </div>
                   )}
-
                 </div>
               ))}
             </div>
           </div>
-        )
-      }
+        )}
 
-      {
-        activeTab === 'create' && (
+        {activeTab === "create" && (
           <div className="time-machine">
             <h1 className="capsule-header">Write your thoughts today so you can read your journey tomorrow</h1>
             <form onSubmit={handleSubmit} className="capsule-form">
@@ -303,26 +357,30 @@ export default function Dashboard() {
             </form>
           </div>
         )
-      }
-       {activeTab==='analytics' && (
-        <div className="time-machine">
-          <h1>Analytics Overview</h1>
-          <div className="analytics-cards">
-            <div className="analytics-card">
-              <h2>Total Capsules</h2><p>{total}</p>
+        }
+
+        {
+          activeTab === 'analytics' && (
+            <div className="time-machine">
+              <h1>Analytics Overview</h1>
+              <div className="analytics-cards">
+                <div className="analytics-card">
+                  <h2>Total Capsules</h2><p>{total}</p>
+                </div>
+                <div className="analytics-card">
+                  <h2>Unlocked</h2><p>{unlocked}</p>
+                </div>
+                <div className="analytics-card">
+                  <h2>Locked</h2><p>{locked}</p>
+                </div>
+                <div className="analytics-card">
+                  <h2>Next Unlock</h2><p>{nextDate}</p>
+                </div>
+              </div>
             </div>
-            <div className="analytics-card">
-              <h2>Unlocked</h2><p>{unlocked}</p>
-            </div>
-            <div className="analytics-card">
-              <h2>Locked</h2><p>{locked}</p>
-            </div>
-            <div className="analytics-card">
-              <h2>Next Unlock</h2><p>{nextDate}</p>
-            </div>
-          </div>
-        </div>
-      )}
-    </div >
+          )
+        }
+      </>
+    </div>
   );
 }
