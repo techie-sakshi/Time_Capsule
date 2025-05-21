@@ -42,8 +42,9 @@ export default function Dashboard() {
   const [currentDate, setCurrentDate] = useState("");
   const [currentDay, setCurrentDay] = useState("");
 
-  const CLOUD_NAME = "dfp9nnzgm";
-  const UPLOAD_PRESET = "timecapsule_unsigned";
+ const CLOUD_NAME = process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME;
+ const UPLOAD_PRESET = process.env.NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET;
+
 
   useEffect(() => {
     const updateDateTime = () => {
