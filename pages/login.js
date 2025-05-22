@@ -24,7 +24,7 @@ export default function LoginPage() {
       } else {
         await createUserWithEmailAndPassword(auth, email, password);
       }
-      router.push("/dashboard"); // Redirect after login
+      router.push("/"); // Redirect after login
     } catch (err) {
       setError(err.message);
     }
