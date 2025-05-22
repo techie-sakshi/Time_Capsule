@@ -11,7 +11,8 @@
   --border-radius: 8px;
 }
 
-body, html {
+body,
+html {
   margin: 0;
   padding: 0;
   font-family: 'Courier New', monospace;
@@ -26,19 +27,29 @@ body, html {
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 20px;
+  padding: 1rem;
   flex-direction: column;
+  max-width: 1200px;
+  margin: auto;
+}
+
+@media (min-width: 640px) {
+  .container {
+    padding: 2rem;
+    /* more breathing room on tablets+ */
+    margin: auto;
+  }
 }
 
 .time-machine {
   background: rgba(255, 255, 255, 0.1);
   border-radius: var(--border-radius);
   padding: 2rem;
-  width: 100%;
+  width: calc(100% - 2rem);
   max-width: 1200px;
   box-shadow: 0 0 20px rgba(0, 255, 157, 0.2);
   animation: glow 4s infinite;
-  margin-bottom: 3rem;
+  margin: 1rem;
 }
 
 /* New Navbar styles */
@@ -50,16 +61,31 @@ body, html {
   padding: 0.5rem 1rem;
   display: flex;
   justify-content: space-between;
-  align-items: center;
+  align-items: stretch;
   box-shadow: 0 0 15px rgba(0, 255, 157, 0.7);
-  margin-bottom: 2rem;
+  margin-bottom: 1rem;
+  flex-wrap: wrap;
 }
 
 .navbar-left,
 .navbar-right {
   display: flex;
-  align-items: center;
+  /* align-items: center ; */
   gap: 1rem;
+}
+
+@media (max-width: 639px) {
+  .navbar {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.5rem;
+  }
+
+  .navbar-left,
+  .navbar-right {
+    width: 100%;
+    justify-content: center;
+  }
 }
 
 .nav-link {
@@ -83,6 +109,68 @@ body, html {
   font-weight: 700;
 }
 
+.navbar-right .nav-link {
+  flex-shrink: 0;
+  /* prevent it from shrinking away */
+}
+
+@media (max-width: 640px) {
+  .time-machine {
+    margin: 1rem 0;
+    /* less bottom margin, more top/bottom breathing room */
+  }
+}
+
+/* Hamburger button styling (only visible <640px) */
+.hamburger {
+  background: none;
+  border: none;
+  color: var(--text-color);
+  font-size: 1.5rem;
+  cursor: pointer;
+  padding: 0.5rem;
+  margin-right: auto;
+  /* push it to the left edge */
+}
+
+/* Mobile‐only menu wrapper styling */
+@media (max-width: 639px) {
+
+  /* give the collapsed nav a backdrop and padding */
+  .navbar-left,
+  .navbar-right {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: var(--border-radius);
+    padding: 1rem;
+    /* display: flex;                */
+    flex-direction: column;
+    /* stack children vertically */
+    align-items: flex-start;
+  }
+
+  /* force the mobile nav items to stack */
+  .navbar-left .nav-link,
+  .navbar-right .nav-link,
+  .navbar-right .date-time {
+    display: block;
+    width: 100%;
+    margin: 0 0 0.75rem 0;
+  }
+
+  /* remove unwanted gaps under last item */
+  .navbar-left .nav-link:last-child,
+  .navbar-right .nav-link:last-child,
+  .navbar-right .date-time:last-child {
+    margin-bottom: 0;
+  }
+}
+
+/* Hide the hamburger on large screens */
+@media (min-width: 640px) {
+  .hamburger {
+    display: none;
+  }
+}
 
 /* Dark mode overrides */
 body.dark {
@@ -103,7 +191,7 @@ body.dark .time-machine {
 .capsule-header {
   text-align: center;
   margin-bottom: 2rem;
- font-family: 'Papyrus', cursive, sans-serif;
+  font-family: 'Papyrus', cursive, sans-serif;
 }
 
 .year-display {
@@ -124,7 +212,9 @@ body.dark .time-machine {
   gap: 0.5rem;
 }
 
-textarea, input, select {
+textarea,
+input,
+select {
   background: rgba(255, 255, 255, 0.1);
   border: 1px solid var(--primary-color);
   border-radius: var(--border-radius);
@@ -219,17 +309,34 @@ textarea {
 }
 
 @keyframes glow {
-  0% { box-shadow: 0 0 5px var(--primary-color); }
-  50% { box-shadow: 0 0 20px var(--primary-color); }
-  100% { box-shadow: 0 0 5px var(--primary-color); }
+  0% {
+    box-shadow: 0 0 5px var(--primary-color);
+  }
+
+  50% {
+    box-shadow: 0 0 20px var(--primary-color);
+  }
+
+  100% {
+    box-shadow: 0 0 5px var(--primary-color);
+  }
 }
 
 @keyframes fadeIn {
-  from { opacity: 0; transform: translateY(20px); }
-  to { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
+
 .welcome-message {
-  font-family: 'Papyrus', cursive, sans-serif; /* example of a cool handwriting font */
+  font-family: 'Papyrus', cursive, sans-serif;
+  /* example of a cool handwriting font */
   font-size: 1.5rem;
   font-weight: 600;
   color: white;
@@ -237,8 +344,10 @@ textarea {
   margin-bottom: 2rem;
   text-shadow: 0 0 8px var(--primary-color);
 }
+
 .date-time {
-  color: var(--background-color); /* or your navbar text color */
+  color: var(--background-color);
+  /* or your navbar text color */
   font-family: 'Courier New', monospace;
   font-size: 0.9rem;
   user-select: none;
@@ -250,27 +359,39 @@ textarea {
   background-color: var(--background-color);
   color: var(--text-color);
 }
+
 /* in globals.css, at the bottom */
-.time-machine .flex > * + * {
-  margin-left: 1rem; /* same as tailwind’s space-x-4 */
+.time-machine .flex>*+* {
+  margin-left: 1rem;
+  /* same as tailwind’s space-x-4 */
 }
+
 .analytics-cards {
-  display: flex; flex-wrap: wrap; gap: 1rem; margin-top: 1rem;
-  
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-top: 1rem;
+
 }
+
 .analytics-card {
   background: var(--card-bg);
   border-radius: var(--border-radius);
   padding: 1.5rem;
   flex: 1 1 200px;
   text-align: center;
-  border: 2px solid var(--primary-color); /* Add this for border */
+  border: 2px solid var(--primary-color);
+  /* Add this for border */
   /* box-shadow: 0 0 10px var(--primary-color); Optional: glow effect */
 }
+
 .analytics-card h2 {
-  margin-bottom: 0.5rem; font-size: 1.2rem;
+  margin-bottom: 0.5rem;
+  font-size: 1.2rem;
 }
+
 .analytics-card p {
-  font-size: 2rem; color: var(--primary-color);
-  
+  font-size: 2rem;
+  color: var(--primary-color);
+
 }
