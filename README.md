@@ -32,7 +32,7 @@ Users can create capsules containing text, images, voice messages,videos that un
 
 - **Frontend:** Next.js, React, Tailwind CSS  
 - **Backend:** Firebase (Firestore, Authentication)  
-- **Storage:** Cloudinary (for image uploads)  
+- **Storage:** Cloudinary  
 - **Email Service:** EmailJS  
 - **Other:** React hooks, Context API, and custom components for smooth UX
 
@@ -64,10 +64,8 @@ NEXT_PUBLIC_FIREBASE_PROJECT_ID=your_firebase_project_id
 NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET=your_firebase_storage_bucket
 NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID=your_firebase_sender_id
 NEXT_PUBLIC_FIREBASE_APP_ID=your_firebase_app_id
-
 NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME=your_cloudinary_cloud_name
 NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET=your_upload_preset
-
 NEXT_PUBLIC_EMAILJS_SERVICE_ID=your_emailjs_service_id
 NEXT_PUBLIC_EMAILJS_TEMPLATE_ID=your_emailjs_template_id
 NEXT_PUBLIC_EMAILJS_PUBLIC_KEY=your_emailjs_public_key
