@@ -65,6 +65,19 @@ export default function Dashboard() {
         console.error("❌ Email error:", err);
       });
   };
+  const handleUnlock = async (cap) => {
+    if (cap.reminderSent) return;
+
+    sendUnlockEmail(cap);
+
+    try {
+      const capsuleRef = doc(db, "capsules", cap.id);
+      await updateDoc(capsuleRef, { reminderSent: true });
+      console.log("📍 reminderSent updated in Firestore");
+    } catch (err) {
+      console.error("❌ Firestore update failed:", err);
+    }
+  };
 
 
   useEffect(() => {
@@ -315,7 +328,11 @@ export default function Dashboard() {
                     <small>Created on: {cap.createdAt.toLocaleString()}</small>
                   </div>
                   <div className="countdown-timer">
-                    {isUnlocked(cap) ? "Unlocked!" : <Countdown date={cap.unlockDate} />}
+                    {isUnlocked(cap) ? "Unlocked!" : <Countdown
+                      date={cap.unlockDate}
+                      onComplete={() => handleUnlock(cap)}
+                    />
+                    }
                   </div>
                   {isUnlocked(cap) ? (
                     <>
