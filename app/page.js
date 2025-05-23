@@ -68,16 +68,13 @@ export default function Dashboard() {
   const handleUnlock = async (cap) => {
     if (cap.reminderSent) return;
 
+    console.log("⏳ Countdown finished, sending email...");
     sendUnlockEmail(cap);
 
-    try {
-      const capsuleRef = doc(db, "capsules", cap.id);
-      await updateDoc(capsuleRef, { reminderSent: true });
-      console.log("📍 reminderSent updated in Firestore");
-    } catch (err) {
-      console.error("❌ Firestore update failed:", err);
-    }
+    const capsuleRef = doc(db, "capsules", cap.id);
+    await updateDoc(capsuleRef, { reminderSent: true });
   };
+
 
 
   useEffect(() => {
