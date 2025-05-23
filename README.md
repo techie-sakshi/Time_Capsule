@@ -1,36 +1,96 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# TimeCapsule
+
+A modern web app to create and send messages to your future self.  
+Users can create capsules containing text, images, voice messages,videos that unlock on a specified future date.
+
+---
+
+## Features
+
+- User Authentication with Firebase Auth (Google, Email, etc.)
+- Create Time Capsules with:
+  - Text messages
+  - Image uploads (via Cloudinary)
+  - Voice recordings
+  - Video recordings
+- Capsules unlock on a scheduled future date/time
+- Real-time updates with Firestore
+- Filter and sort capsules by unlock date and status
+- Download unlocked capsules
+- Dark mode toggle and sleek neon/glow UI design with Tailwind CSS
+- Email notifications when a capsule unlocks (via EmailJS)
+
+---
+
+## Demo
+
+[Live Demo Link](https://time-capsule-iota-ivory.vercel.app/)
+
+---
+
+## Tech Stack
+
+- **Frontend:** Next.js, React, Tailwind CSS  
+- **Backend:** Firebase (Firestore, Authentication)  
+- **Storage:** Cloudinary (for image uploads)  
+- **Email Service:** EmailJS  
+- **Other:** React hooks, Context API, and custom components for smooth UX
+
+---
 
 ## Getting Started
 
-First, run the development server:
+### Prerequisites
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+- Node.js >= 16.x  
+- Firebase account  
+- Cloudinary account  
+- EmailJS account  
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### Installation
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+1. Clone the repo:
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+git clone https://github.com/techie-sakshi/Time_Capsule
+cd timecapsule
 
-## Learn More
+2. Install dependencies:
+    npm install
 
-To learn more about Next.js, take a look at the following resources:
+3. Create a .env.local file in the project root and add your credentials:
+NEXT_PUBLIC_FIREBASE_API_KEY=your_firebase_api_key
+NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN=your_firebase_auth_domain
+NEXT_PUBLIC_FIREBASE_PROJECT_ID=your_firebase_project_id
+NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET=your_firebase_storage_bucket
+NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID=your_firebase_sender_id
+NEXT_PUBLIC_FIREBASE_APP_ID=your_firebase_app_id
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME=your_cloudinary_cloud_name
+NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET=your_upload_preset
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+NEXT_PUBLIC_EMAILJS_SERVICE_ID=your_emailjs_service_id
+NEXT_PUBLIC_EMAILJS_TEMPLATE_ID=your_emailjs_template_id
+NEXT_PUBLIC_EMAILJS_PUBLIC_KEY=your_emailjs_public_key
 
-## Deploy on Vercel
+4. Run the development server:
+    npm run dev
+Open http://localhost:3000 to view in the browser.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Usage
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+    Sign up or log in using Firebase Authentication
+
+    Create new time capsules with messages and media
+
+    Set unlock date/time
+
+    View upcoming capsules and those unlocked
+
+    Download unlocked messages or receive email notifications when capsules unlock
+
+Folder Structure
+    /components    - React UI components  
+    /pages         - Next.js pages  
+    /lib           - Firebase and other utility configs  
+    /public        - Static assets  
+    /styles        - Tailwind CSS and custom styles 
